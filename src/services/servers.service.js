@@ -118,13 +118,25 @@ export function getResults() {
   return results;
 }
 
-export async function search(term, page = 0) {
-  const total = await Server.find({
-    motd: {
+export async function search(filters, page = 0) {
+  const filter = {};
+
+  if (filters.software) {
+    filter.software = filters.software;
+  }
+
+  if (filters.versions) {
+    filter.versions = { $in: filters.versions };
+  }
+
+  if (filters.motd) {
+    filter.motd = {
       $regex: term,
       $options: "i",
-    },
-  }).countDocuments();
+    };
+  }
+
+  const total = await Server.find(filter).countDocuments();
 
   const servers = await Server.find({
     motd: {

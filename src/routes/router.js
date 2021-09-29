@@ -8,17 +8,10 @@ router.get("/", (req, res) => {
 });
 
 router.get("/search", async (req, res) => {
-  const { q, page } = req.query;
-  if (!q || q.length < 3) {
-    res.status(400).json({
-      error:
-        "Must specify a search term with 'q' parameter. Also 'q' parameter must be longer or equal to 3 characters.",
-    });
-  } else {
-    const pageID = parseInt(page || 0);
-    const result = await search(q, isNaN(pageID) ? 0 : pageID);
-    res.json({ data: result });
-  }
+  const query = req.query;
+  const pageID = parseInt(query.page || 0);
+  const result = await search(query, isNaN(pageID) ? 0 : pageID);
+  res.json({ data: result });
 });
 
 router.get("/stats", (req, res) => {
