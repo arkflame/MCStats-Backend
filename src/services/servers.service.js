@@ -145,12 +145,7 @@ export async function search(filters, page = 0) {
 
   const total = await Server.find(filter).countDocuments();
 
-  const servers = await Server.find({
-    motd: {
-      $regex: term,
-      $options: "i",
-    },
-  })
+  const servers = await Server.find(filter)
     .sort({ players: -1 })
     .skip(10 * page)
     .limit(10);
