@@ -125,8 +125,8 @@ export async function search(filters, page = 0) {
     filter.software = filters.software;
   }
 
-  if (filters.versions) {
-    filter.versions = { $in: filters.versions };
+  if (filters.version) {
+    filter.versions = { $in: [filters.version] };
   }
 
   if (filters.motd && filters.motd != "") {
