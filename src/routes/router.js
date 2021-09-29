@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 
 router.get("/search", async (req, res) => {
   const { q, page } = req.query;
-  if (!q || q.length < 2) {
+  if (!q || q.length < 3) {
     res.status(400).json({
       error:
         "Must specify a search term with 'q' parameter. Also 'q' parameter must be longer or equal to 3 characters.",
