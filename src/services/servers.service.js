@@ -133,7 +133,7 @@ export async function search(term, page = 0) {
       $options: "i",
     },
   })
-    .sort({ players: 1 })
+    .sort({ players: -1 })
     .skip(10 * page)
     .limit(10);
 
