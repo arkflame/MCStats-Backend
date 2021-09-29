@@ -82,7 +82,7 @@ async function countPlayers() {
   let players = 0;
 
   for (let server of servers) {
-    players += server.online;
+    players += server.players;
   }
 
   return players;
