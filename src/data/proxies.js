@@ -1,4 +1,5 @@
 export default [
+  "xebungee",
   "insaneproxy",
   "aegis",
   "flamecord",
