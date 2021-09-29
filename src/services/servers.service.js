@@ -6,6 +6,8 @@ import versionList from "../data/versions";
 
 const results = {
   total: 0,
+  totalOnline: 0,
+  players: 0,
   byVersions: {},
   byProxies: {},
   byStandalone: {},
@@ -18,7 +20,7 @@ function sortJson(json) {
       return { name: key, count: value };
     })
     .sort((a, b) => {
-      return (a.count < b.count) ? 1 : -1;
+      return a.count < b.count ? 1 : -1;
     });
 }
 
@@ -75,20 +77,41 @@ async function countByStandalone() {
   return sortJson(softwares);
 }
 
+async function countPlayers() {
+  const servers = await Server.find({ online: true });
+  let players = 0;
+
+  for (let server of servers) {
+    players += server.online;
+  }
+
+  return players;
+}
+
 async function countTotal() {
   return await Server.find().countDocuments();
+}
+
+async function countOnline() {
+  return await Server.find({ online: true }).countDocuments();
 }
 
 export async function updateResults() {
   const byVersions = await countByVersions();
   const byProxies = await countByProxies();
   const byStandalone = await countByStandalone();
+
   const total = await countTotal();
+  const totalOnline = await countOnline();
+  const players = await countPlayers();
 
   results.byProxies = byProxies;
   results.byStandalone = byStandalone;
   results.byVersions = byVersions;
+
   results.total = total;
+  results.totalOnline = totalOnline;
+  results.players = players;
 }
 
 export function getResults() {

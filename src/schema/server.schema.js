@@ -7,13 +7,11 @@ const ServerSchema = new Schema(
     software: String,
     versions: [String],
     motd: String,
+    online: Boolean,
+    players: Number,
     hostname: {
       type: String,
       unique: true,
-    },
-    port: {
-      type: Number,
-      default: 25565,
     },
   },
   { timestamps: true }
