@@ -1,10 +1,19 @@
 import { Router } from "express";
-import { getResults, updateResults, search } from "../services/servers.service";
+import {
+  getLists,
+  getResults,
+  updateResults,
+  search,
+} from "../services/servers.service";
 
 const router = Router();
 
 router.get("/", (req, res) => {
   res.json({ data: getResults() });
+});
+
+router.get("/lists", (req, res) => {
+  res.json({ data: getLists() });
 });
 
 router.get("/search", async (req, res) => {

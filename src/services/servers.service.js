@@ -14,6 +14,13 @@ const results = {
   byStandalone: {},
 };
 
+export function getLists() {
+  return {
+    softwares: [...proxyList, ...softwareList],
+    versions: versionList,
+  };
+}
+
 function sortJson(json) {
   return Object.keys(json)
     .map((key) => {
