@@ -120,12 +120,22 @@ export function getResults() {
 }
 
 export async function search(term, page = 0) {
-  return await Server.find({
+  const total = await Server.find({
+    motd: {
+      $regex: term,
+      $options: "i",
+    },
+  }).countDocuments();
+
+  const servers = await Server.find({
     motd: {
       $regex: term,
       $options: "i",
     },
   })
-    .skip(20 * page)
-    .limit(20);
+    .sort({ players: 1 })
+    .skip(10 * page)
+    .limit(10);
+
+  return { total, servers };
 }
