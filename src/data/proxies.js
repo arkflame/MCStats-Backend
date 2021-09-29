@@ -8,4 +8,5 @@ export default [
   "velocity",
   "travertine",
   "hexacord",
+  "nullcordx",
 ];
