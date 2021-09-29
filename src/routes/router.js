@@ -1,10 +1,24 @@
 import { Router } from "express";
-import { getResults, updateResults } from "../services/servers.service";
+import { getResults, updateResults, search } from "../services/servers.service";
 
 const router = Router();
 
 router.get("/", (req, res) => {
   res.json({ data: getResults() });
+});
+
+router.get("/search", (req, res) => {
+  const { q, page } = req.query;
+  if (!q || q.length < 2) {
+    res.status(400).json({
+      error:
+        "Must specify a search term with 'q' parameter. Also 'q' parameter must be longer or equal to 3 characters.",
+    });
+  } else {
+    const pageID = parseInt(page || 0);
+    const result = await search(q, isNaN(pageID) ? 0 : pageID);
+    res.json({ data: result });
+  }
 });
 
 router.get("/stats", (req, res) => {

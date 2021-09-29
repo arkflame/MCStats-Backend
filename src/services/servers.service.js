@@ -8,6 +8,7 @@ const results = {
   total: 0,
   totalOnline: 0,
   players: 0,
+
   byVersions: {},
   byProxies: {},
   byStandalone: {},
@@ -116,4 +117,15 @@ export async function updateResults() {
 
 export function getResults() {
   return results;
+}
+
+export async function search(term, page = 0) {
+  return await Server.find({
+    motd: {
+      $regex: term,
+      $options: "i",
+    },
+  })
+    .skip(20 * page)
+    .limit(20);
 }
