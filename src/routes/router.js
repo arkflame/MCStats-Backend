@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
   res.json({ data: getResults() });
 });
 
-router.get("/search", (req, res) => {
+router.get("/search", async (req, res) => {
   const { q, page } = req.query;
   if (!q || q.length < 2) {
     res.status(400).json({
