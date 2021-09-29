@@ -129,7 +129,7 @@ export async function search(filters, page = 0) {
     filter.versions = { $in: filters.versions };
   }
 
-  if (filters.motd) {
+  if (filters.motd && filters.motd != "") {
     filter.motd = {
       $regex: filters.motd,
       $options: "i",
