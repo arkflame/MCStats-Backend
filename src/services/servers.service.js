@@ -30,7 +30,7 @@ async function countByVersions() {
   const versions = {};
 
   for (let server of servers) {
-    if (!proxyList.includes(server.software) || server.versions == 1) {
+    if (!proxyList.includes(server.software) || server.versions?.length == 1) {
       for (let version of server.versions || []) {
         if (versions[version] == null) {
           versions[version] = 1;
