@@ -131,7 +131,7 @@ export async function search(filters, page = 0) {
 
   if (filters.motd) {
     filter.motd = {
-      $regex: term,
+      $regex: filters.motd,
       $options: "i",
     };
   }
